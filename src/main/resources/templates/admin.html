@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>user</title>
+    <title>admin</title>
 </head>
 <body>
 <table border="1">
@@ -15,7 +15,7 @@
         <td>Roles</td>
     </tr>
     </thead>
-    <tr>
+    <tr th:each="user : ${users}">
         <td th:utext="${user.getId()}"></td>
         <td th:utext="${user.getName()}"></td>
         <td th:utext="${user.getSurname()}"></td>
@@ -27,8 +27,20 @@
                 <span th:unless="${i.last}">, </span>
             </span>
         </td>
+        <td>
+            <form th:method="GET" th:action="@{/admin/edit/{id}(id=${user.getId()})}">
+                <input type="submit" value="Edit">
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/admin/delete/{id}(id=${user.getId()})}">
+                <input type="submit" value="Delete">
+            </form>
+        </td>
     </tr>
 </table>
+<br>
+<a th:href="@{/admin/add}">Add User</a>
 <br>
 <a th:href="@{/logout}">Logout</a>
 </body>

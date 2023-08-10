@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.service;
+package ru.kata.spring.boot_security.demo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -13,6 +13,7 @@ import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -72,5 +73,10 @@ public class UserServiceImp implements UserService {
     @Override
     public List<Role> getRolesList() {
         return roleRepository.findAll();
+    }
+    @Transactional
+    @Override
+    public void addRoles(Set<Role> roles) {
+        roleRepository.saveAll(roles);
     }
 }

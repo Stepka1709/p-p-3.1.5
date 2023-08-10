@@ -7,8 +7,7 @@ import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 import javax.annotation.PostConstruct;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class InitDb {
@@ -22,8 +21,7 @@ public class InitDb {
 
     @PostConstruct
     private void init() {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role("ROLE_ADMIN"));
+        Set<Role> roles = new HashSet<>(Arrays.asList(new Role("ROLE_ADMIN"), new Role("ROLE_USER")));
         userService.addRoles(roles);
         userService.addUser(new User("Test", "Test", (byte) 1, "admin", "admin",
                 roles));

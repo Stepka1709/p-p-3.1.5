@@ -61,8 +61,12 @@ public class UserServiceImp implements UserService {
     @Transactional
     @Override
     public void editUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        if (user.getPassword().equals(userRepository.getById(user.getId()).getPassword())) {
+            userRepository.save(user);
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+        }
     }
 
     @Override
@@ -74,6 +78,7 @@ public class UserServiceImp implements UserService {
     public List<Role> getRolesList() {
         return roleRepository.findAll();
     }
+
     @Transactional
     @Override
     public void addRoles(Set<Role> roles) {

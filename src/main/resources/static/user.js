@@ -1,6 +1,7 @@
 let user = "";
+var port = window.location.port;
 
-fetch("http://localhost:8080/api/user").then(res => res.json())
+fetch("http://localhost:" + port + "/api/user").then(res => res.json())
     .then(data => {
         user = data;
         showUser(user)
@@ -36,7 +37,6 @@ function showRoles(user) {
 
 function isAdmin(user) {
     if (!user.roles.some(role => role.title === "ROLE_ADMIN")) {
-        console.log("admin")
         document.getElementById("isAdmin").setAttribute("hidden", "true");
     }
 }

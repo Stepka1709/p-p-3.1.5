@@ -1,6 +1,7 @@
-let user = ""
+let user = "";
+var port = window.location.port;
 
-fetch("http://localhost:8080/api/user").then(res => res.json())
+fetch("http://localhost:" + port + "/api/user").then(res => res.json())
     .then(data => {
         user = data;
         showUsername(user)
@@ -25,7 +26,7 @@ let tableUsers = [];
 let editModal = new bootstrap.Modal(document.getElementById('editModal'));
 let deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
 
-let request = new Request("http://localhost:8080/api/admin/users", {
+let request = new Request("http://localhost:" + port + "/api/admin/users", {
     method: "GET",
     headers: {
         'Content-Type': 'application/json',
@@ -67,7 +68,7 @@ function showUsers(table) {
 }
 
 function showEditModal(id) {
-    let request = new Request("http://localhost:8080/api/admin/user/" + id, {
+    let request = new Request("http://localhost:" + port + "/api/admin/user/" + id, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -116,7 +117,7 @@ function submitEditForm(event) {
         password: editUserForm.get('password'),
         roles: roles("#editRoles")
     }
-    let request = new Request('http://localhost:8080/api/admin/edit', {
+    let request = new Request('http://localhost:' + port + '/api/admin/edit', {
         method: 'PUT',
         body: JSON.stringify(user),
         headers: {
@@ -162,7 +163,7 @@ function showDeleteModal(id) {
         document.getElementById('deleteForm').reset();
     });
 
-    let request = new Request("http://localhost:8080/api/admin/user/" + id, {
+    let request = new Request("http://localhost:" + port + "/api/admin/user/" + id, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -199,7 +200,7 @@ function showDeleteModal(id) {
         event.preventDefault();
         if (!isDelete) {
             isDelete = true;
-            let request = new Request('http://localhost:8080/api/admin/delete/' + id, {
+            let request = new Request('http://localhost:' + port + '/api/admin/delete/' + id, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -230,9 +231,7 @@ function addNewUser(form) {
         roles: roles("#roles1")
     };
 
-    console.log(user)
-
-    let req = new Request("http://localhost:8080/api/admin/add", {
+    let req = new Request("http://localhost:" + port + "/api/admin/add", {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {

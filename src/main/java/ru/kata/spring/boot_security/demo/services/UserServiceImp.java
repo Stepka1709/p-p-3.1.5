@@ -49,7 +49,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User getUser(int id) {
-        return userRepository.findById(id).get();
+        return userRepository.findById(id).orElse(null);
     }
 
     @Transactional
